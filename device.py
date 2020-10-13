@@ -26,88 +26,87 @@ class Device():
 
         if self.get_device(address, 'switch') == None:
             device_id = address + '_switch'
-            Domoticz.Debug('Creating domoticz device to handle on/off state')
-            Domoticz.Device(Unit=self.get_first_available_unit(), DeviceID=device_id, Name=name + ' - Switch', TypeName="Switch", Image=9).Create()
+            Domoticz.Debug('Domoticz eszköz létrehozása az eszköz be/ki kapcsolásának kezelésére')
+            Domoticz.Device(Unit=self.get_first_available_unit(), DeviceID=device_id, Name=name + ' - Kapcsoló', TypeName="Switch", Image=9).Create()
 
         if self.get_device(address, 'turbo') == None:
             device_id = address + '_turbo'
-            Domoticz.Debug('Creating domoticz device to handle Turbo mode')
-            Domoticz.Device(Unit=self.get_first_available_unit(), DeviceID=device_id, Name=name + ' - Turbo Mode', TypeName="Switch", Image=9).Create()
+            Domoticz.Debug('Domoticz eszköz létrehozása a turbó mód kezelésére')
+            Domoticz.Device(Unit=self.get_first_available_unit(), DeviceID=device_id, Name=name + ' - Turbó mód', TypeName="Switch", Image=9).Create()
 
         if self.get_device(address, 'quiet') == None:
             device_id = address + '_quiet'
-            Domoticz.Debug('Creating domoticz device to handle Quiet mode')
-            Domoticz.Device(Unit=self.get_first_available_unit(), DeviceID=device_id, Name=name + ' - Quiet Mode', TypeName="Switch", Image=9).Create()
-
+            options = {}
+            options['LevelActions'] = ''
+            options['LevelNames'] = '|'.join(['Off', 'Csendes 1', 'Csendes 2'])
+            options['SelectorStyle'] = '1'
+            Domoticz.Debug('Domoticz eszköz létrehozása a csendes mód kezelésére')
+            Domoticz.Device(Unit=self.get_first_available_unit(), DeviceID=device_id, Name=name + ' - Csendes mód', TypeName="Selector Switch", Options=options, Image=9).Create()
+			
         if self.get_device(address, 'sleep') == None:
             device_id = address + '_sleep'
-            Domoticz.Debug('Creating domoticz device to handle Sleep mode')
-            Domoticz.Device(Unit=self.get_first_available_unit(), DeviceID=device_id, Name=name + ' - Sleep Mode', TypeName="Switch", Image=9).Create()
+            Domoticz.Debug('Domoticz eszköz létrehozása a alvó mód kezelésére')
+            Domoticz.Device(Unit=self.get_first_available_unit(), DeviceID=device_id, Name=name + ' - Alvó mód', TypeName="Switch", Image=9).Create()
 
         if self.get_device(address, 'health') == None:
             device_id = address + '_health'
-            Domoticz.Debug('Creating domoticz device to handle Health (Cold plasma) mode')
-            Domoticz.Device(Unit=self.get_first_available_unit(), DeviceID=device_id, Name=name + ' - Cold Plasma', TypeName="Switch", Image=9).Create()
-
-        if self.get_device(address, 'blow') == None:
-            device_id = address + '_blow'
-            Domoticz.Debug('Creating domoticz device to handle Blow (X-Fan) mode')
-            Domoticz.Device(Unit=self.get_first_available_unit(), DeviceID=device_id, Name=name + ' - Blow (X-Fan)', TypeName="Switch", Image=9).Create()
+            Domoticz.Debug('Domoticz eszköz létrehozása az egészség (hideg plazma) mód kezelésére')
+            Domoticz.Device(Unit=self.get_first_available_unit(), DeviceID=device_id, Name=name + ' - Hideg plazma', TypeName="Switch", Image=9).Create()
 
         if self.get_device(address, 'economy') == None:
             device_id = address + '_economy'
-            Domoticz.Debug('Creating domoticz device to handle Energy saving mode')
-            Domoticz.Device(Unit=self.get_first_available_unit(), DeviceID=device_id, Name=name + ' - Energy Saving', TypeName="Switch", Image=9).Create()
+            Domoticz.Debug('Domoticz eszköz létrehozása a energia takarékos mód kezelésére')
+            Domoticz.Device(Unit=self.get_first_available_unit(), DeviceID=device_id, Name=name + ' - Energia takarékos mód', TypeName="Switch", Image=9).Create()
 
         if self.get_device(address, 'display') == None:
             device_id = address + '_display'
-            Domoticz.Debug('Creating domoticz device to handle visibility of display indicators')
-            Domoticz.Device(Unit=self.get_first_available_unit(), DeviceID=device_id, Name=name + ' - Display', TypeName="Switch", Image=9).Create()
+            Domoticz.Debug('Domoticz eszköz létrehozása a kijelzők láthatóságának kezelésére')
+            Domoticz.Device(Unit=self.get_first_available_unit(), DeviceID=device_id, Name=name + ' - Kijelző', TypeName="Switch", Image=9).Create()
 
         if self.get_device(address, 'temp') == None:
             device_id = address + '_temp'
-            Domoticz.Debug('Creating domoticz device to handle temperature')
-            Domoticz.Device(Unit=self.get_first_available_unit(), DeviceID=device_id, Name=name + ' - Temperature', Type=242, Subtype=1).Create()
+            Domoticz.Debug('Domoticz eszköz létrehozása a hőmérséklet kezelésére')
+            Domoticz.Device(Unit=self.get_first_available_unit(), DeviceID=device_id, Name=name + ' - Hőmérséklet', Type=242, Subtype=1).Create()
 
         if self.get_device(address, 'mode') == None:
             device_id = address + '_mode'
             options = {}
             options['LevelActions'] = ''
-            options['LevelNames'] = '|'.join(['Auto', 'Cool', 'Dry', 'Fan', 'Heat'])
+            options['LevelNames'] = '|'.join(['Automatikus', 'Hűtés', 'Szárítás', 'Keringetés', 'Fűtés'])
             options['SelectorStyle'] = '0'
-            Domoticz.Debug('Creating domoticz device to handle device mode')
-            Domoticz.Device(Unit=self.get_first_available_unit(), DeviceID=device_id, Name=name + ' - Mode', TypeName="Selector Switch", Options=options, Image=15).Create()
+            Domoticz.Debug('Domoticz eszköz létrehozása az eszköz mód kezelésére')
+            Domoticz.Device(Unit=self.get_first_available_unit(), DeviceID=device_id, Name=name + ' - Üzemmód', TypeName="Selector Switch", Options=options, Image=15).Create()
 
         if self.get_device(address, 'blades') == None:
             device_id = address + '_blades'
             options = {}
             options['LevelActions'] = ''
             options['LevelNames'] = '|'.join([
-                'Default', 
-                'Swing in full range', 
-                'Fixed in the upmost position (1/5)', 
-                'Fixed in the middle-up position (2/5)', 
-                'Fixed in the middle position (3/5)', 
-                'Fixed in the middle-low position (4/5)',
-                'Fixed in the lowest position (5/5)',
-                'Swing in the downmost region (5/5)',
-                'Swing in the middle-low region (4/5)',
-                'Swing in the middle region (3/5)',
-                'Swing in the middle-up region (2/5)',
-                'Swing in the upmost region (1/5)'
+                'Alapértelmezett', 
+                'Teljes legyezés', 
+                'A legfelső helyzetben rögzítve (1/5)', 
+                'Középső-fenti helyzetben rögzítve (2/5)', 
+                'Középső helyzetben rögzítve (3/5)', 
+                'Középső-lenti helyzetben rögzítve (4/5)',
+                'Alsó helyzetben rögzítve (5/5)',
+                'Legyezés a legalsó régióban(5/5)',
+                'Legyezés a középső-lenti régióban(4/5)',
+                'Legyezés a középső régióban (3/5)',
+                'Legyezés a középső-fenti régióban (2/5)',
+                'Legyezés a legfelső régióban(1/5)'
             ])
             options['SelectorStyle'] = '1'
-            Domoticz.Debug('Creating domoticz device to handle blades position')
-            Domoticz.Device(Unit=self.get_first_available_unit(), DeviceID=device_id, Name=name + ' - Blades', TypeName="Selector Switch", Options=options, Image=9).Create()
+            Domoticz.Debug('Domotikus eszköz létrehozása a lapátok helyzetének kezelésére')
+            Domoticz.Device(Unit=self.get_first_available_unit(), DeviceID=device_id, Name=name + ' - Lapátok', TypeName="Selector Switch", Options=options, Image=9).Create()
 
         if self.get_device(address, 'fan') == None:
             device_id = address + '_fan'
             options = {}
             options['LevelActions'] = ''
-            options['LevelNames'] = '|'.join(['Auto', 'Low', 'Medium-low', 'Medium', 'Medium-high', 'High'])
+            options['LevelNames'] = '|'.join(['Autómatikus', 'Gyenge', 'Közepessen gyenge', 'Közepes', 'Közepessen erős', 'Erős'])
             options['SelectorStyle'] = '1'
-            Domoticz.Debug('Creating domoticz device to handle device fan speed')
-            Domoticz.Device(Unit=self.get_first_available_unit(), DeviceID=device_id, Name=name + ' - Fan Speed', TypeName="Selector Switch", Options=options, Image=7).Create()
+            Domoticz.Debug('Domoticz eszköz létrehozása az eszköz ventilátor sebességének kezelésére')
+            Domoticz.Device(Unit=self.get_first_available_unit(), DeviceID=device_id, Name=name + ' - Ventilátor sebessége', TypeName="Selector Switch", Options=options, Image=7).Create()
 
         self.device = device
 
@@ -138,11 +137,10 @@ class Device():
             self._update_device('turbo', int(state['Tur']), str(state['Tur']))
 
         if "Quiet" in state:
-            self._update_device('quiet', int(state['Quiet']), str(state['Quiet']))
-
-        if "Blo" in state:
-            self._update_device('blow', int(state['Blo']), str(state['Blo']))
-
+            n_value = self.get_device(address, 'switch').nValue
+            s_value = str(state["Quiet"] * 10)
+            self._update_device('quiet', n_value, s_value)
+			
         if "Health" in state:
             self._update_device('health', int(state['Health']), str(state['Health']))
 
@@ -190,12 +188,9 @@ class Device():
         if alias == 'turbo' and (cmd == 'ON' or cmd == 'OFF'):
             commands['Tur'] = 1 if cmd == 'ON' else 0
 
-        if alias == 'quiet' and (cmd == 'ON' or cmd == 'OFF'):
-            commands['Quiet'] = 1 if cmd == 'ON' else 0
-
-        if alias == 'blow' and (cmd == 'ON' or cmd == 'OFF'):
-            commands['Blo'] = 1 if cmd == 'ON' else 0
-
+        if alias == 'quiet':
+            commands['Quiet'] = level / 10
+			
         if alias == 'health' and (cmd == 'ON' or cmd == 'OFF'):
             commands['Health'] = 1 if cmd == 'ON' else 0
 
@@ -223,5 +218,4 @@ class Device():
             commands['SwUpDn'] = level / 10
 
         return commands
-
-        
+    

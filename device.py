@@ -77,8 +77,8 @@ class Device():
             Domoticz.Debug('Domoticz eszköz létrehozása az eszköz mód kezelésére')
             Domoticz.Device(Unit=self.get_first_available_unit(), DeviceID=device_id, Name=name + ' - Üzemmód', TypeName="Selector Switch", Options=options, Image=15).Create()
 
-        if self.get_device(address, 'blades') == None:
-            device_id = address + '_blades'
+        if self.get_device(address, 'bladesUD') == None:
+            device_id = address + '_bladesUD'
             options = {}
             options['LevelActions'] = ''
             options['LevelNames'] = '|'.join([
@@ -96,8 +96,30 @@ class Device():
                 'Legyezés a legfelső régióban(1/5)'
             ])
             options['SelectorStyle'] = '1'
-            Domoticz.Debug('Domotikus eszköz létrehozása a lapátok helyzetének kezelésére')
-            Domoticz.Device(Unit=self.get_first_available_unit(), DeviceID=device_id, Name=name + ' - Lapátok', TypeName="Selector Switch", Options=options, Image=9).Create()
+            Domoticz.Debug('Domotikus eszköz létrehozása a lapátok függőleges helyzetének kezelésére')
+            Domoticz.Device(Unit=self.get_first_available_unit(), DeviceID=device_id, Name=name + ' - Lapátok függőleges', TypeName="Selector Switch", Options=options, Image=9).Create()
+
+        if self.get_device(address, 'bladesLR') == None:
+            device_id = address + '_bladesLR'
+            options = {}
+            options['LevelActions'] = ''
+            options['LevelNames'] = '|'.join([
+                'Alapértelmezett', 
+                'Teljes legyezés', 
+                'A legfelső helyzetben rögzítve (1/5)', 
+                'Középső-fenti helyzetben rögzítve (2/5)', 
+                'Középső helyzetben rögzítve (3/5)', 
+                'Középső-lenti helyzetben rögzítve (4/5)',
+                'Alsó helyzetben rögzítve (5/5)',
+                'Legyezés a legalsó régióban(5/5)',
+                'Legyezés a középső-lenti régióban(4/5)',
+                'Legyezés a középső régióban (3/5)',
+                'Legyezés a középső-fenti régióban (2/5)',
+                'Legyezés a legfelső régióban(1/5)'
+            ])
+            options['SelectorStyle'] = '1'
+            Domoticz.Debug('Domotikus eszköz létrehozása a lapátok vízszintes helyzetének kezelésére')
+            Domoticz.Device(Unit=self.get_first_available_unit(), DeviceID=device_id, Name=name + ' - Lapátok vízszintes', TypeName="Selector Switch", Options=options, Image=9).Create()
 
         if self.get_device(address, 'fan') == None:
             device_id = address + '_fan'
@@ -131,7 +153,7 @@ class Device():
             self._update_device('switch', n_value, str(n_value))
             self._update_device('mode', n_value, None)
             self._update_device('fan', n_value, None)
-            self._update_device('blades', n_value, None)
+            self._update_device('bladesUD', n_value, None)
 
         if "Tur" in state:
             self._update_device('turbo', int(state['Tur']), str(state['Tur']))
@@ -170,7 +192,12 @@ class Device():
         if "SwUpDn" in state:
             n_value = self.get_device(address, 'switch').nValue
             s_value = str(state["SwUpDn"] * 10)
-            self._update_device('blades', n_value, s_value)
+            self._update_device('bladesUD', n_value, s_value)
+
+        if "SwingLfRig" in state:
+            n_value = self.get_device(address, 'switch').nValue
+            s_value = str(state["SwingLfRig"] * 10)
+            self._update_device('bladesLR', n_value, s_value)
 
     def handle_message(self, topic, message):
         if topic == self.topic + '/status':
@@ -214,8 +241,11 @@ class Device():
         if alias == 'fan':
             commands['WdSpd'] = level / 10
 
-        if alias == 'blades':
+        if alias == 'bladesUD':
             commands['SwUpDn'] = level / 10
+
+        if alias == 'bladesLR':
+            commands['SwingLfRig'] = level / 10
 
         return commands
     

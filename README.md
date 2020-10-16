@@ -1,6 +1,10 @@
 # EwpeSmart - Domoticz Python Plugin
 Python plugin for Domoticz to control ewpe-smart powered air conditioners which can be controled via WiFi using [EWPE Smart app](https://play.google.com/store/apps/details?id=com.gree.ewpesmart)
 
+Kicsit kiegészítettem és lefordítottam magyarra. 
+Most már tudja kezelni acsendes üzemmód 2 külböző szintjét, és a vízszintes lapátkezelést is. 
+(A vízszintes lapátmozgatás a távirányító jelöl még egyéb lehetőséget is, de az én 2018-as Gree Amber készülékeim ezt nem támogatják.)
+
 ![gree-plugin](https://user-images.githubusercontent.com/2734836/49314936-aeffd700-f4f4-11e8-96a7-11310dac543c.PNG)
 
 ## Prerequisites
